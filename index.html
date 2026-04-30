@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>🔄 تبدیل‌کننده واحدها</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            font-family: 'Vazir', Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .converter-container {
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        h1 { color: #11998e; margin-bottom: 25px; }
+        label {
+            display: block;
+            text-align: right;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            font-family: inherit;
+        }
+        button {
+            background: #11998e;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        button:hover { background: #0d7a6e; }
+        #result {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 30px;
+            margin-top: 20px;
+            color: #11998e;
+        }
+    </style>
+</head>
+<body>
+<div class="converter-container">
+    <h1>🔄 تبدیل‌کننده واحدها</h1>
+    <label>مقدار:</label>
+    <input type="number" id="value" placeholder="عدد را وارد کن...">
+    <label>از:</label>
+    <select id="fromUnit">
+        <option value="m">متر (m)</option>
+        <option value="cm">سانتی‌متر (cm)</option>
+        <option value="km">کیلومتر (km)</option>
+    </select>
+    <label>به:</label>
+    <select id="toUnit">
+        <option value="m">متر (m)</option>
+        <option value="cm">سانتی‌متر (cm)</option>
+        <option value="km">کیلومتر (km)</option>
+    </select>
+    <button id="convertBtn">تبدیل کن</button>
+    <h2 id="result">نتیجه: ؟</h2>
+</div>
+<script>
+    function convert() {
+        let value = parseFloat(document.getElementById("value").value);
+        let fromUnit = document.getElementById("fromUnit").value;
+        let toUnit = document.getElementById("toUnit").value;
+        if (isNaN(value)) {
+            document.getElementById("result").innerHTML = "❌ یه عدد معتبر وارد کن!";
+            return;
+        }
+        let meters = 0;
+        if (fromUnit === "m") meters = value;
+        else if (fromUnit === "cm") meters = value / 100;
+        else if (fromUnit === "km") meters = value * 1000;
+        let result = 0;
+        if (toUnit === "m") result = meters;
+        else if (toUnit === "cm") result = meters * 100;
+        else if (toUnit === "km") result = meters / 1000;
+        let resultText = "";
+        if (toUnit === "m") resultText = "متر";
+        else if (toUnit === "cm") resultText = "سانتی‌متر";
+        else resultText = "کیلومتر";
+        document.getElementById("result").innerHTML = `✅ نتیجه: ${result} ${resultText}`;
+    }
+    document.getElementById("convertBtn").addEventListener("click", convert);
+</script>
+</body>
+</html>
